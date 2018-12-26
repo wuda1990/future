@@ -1,10 +1,20 @@
 package com.quantumn.future.auditor;
 
 import com.quantumn.future.model.Trade;
+import com.quantumn.future.model.TradeAuditBo;
 
 import java.util.Map;
 
 public interface RuleAuditor {
-    void initRuleEngine(String kieSessionName);
-    Map audit(Trade trade);
+    /**
+     * 引擎初始化
+     */
+    void initRuleEngine();
+
+    /**
+     * 引擎审核
+     * @param trade
+     * @return
+     */
+    Map audit(TradeAuditBo tradeAuditBo);
 }
