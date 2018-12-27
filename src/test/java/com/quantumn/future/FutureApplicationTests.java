@@ -1,4 +1,7 @@
 package com.quantumn.future;
+/**
+ * 这是为了未来
+ */
 
 import com.quantumn.future.auditor.RuleAuditor;
 import com.quantumn.future.model.Trade;
@@ -24,7 +27,6 @@ public class FutureApplicationTests {
 
     @Test
     public void executeRule() {
-        ruleAuditor.initRuleEngine();
         Trade trade = new Trade();
         trade.setId(101L);
         trade.setCard("622021001131680503");

@@ -11,3 +11,8 @@ rule "txnaudit"
     then
         System.out.println("hit rule: past24hSuccTradeCnt>5");
 end
+
+rule "txnaudit2"
+    when
+       TradeAuditBo()
+
