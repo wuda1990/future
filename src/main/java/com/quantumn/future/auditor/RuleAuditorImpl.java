@@ -47,10 +47,7 @@ public class RuleAuditorImpl implements RuleAuditor {
     }
 
     public Map audit(TradeAuditBo tradeAuditBo) {
-        KieSessionConfiguration kieSessionConfig = KieServices.get().newKieSessionConfiguration();
-        kieSessionConfig.setOption(ClockTypeOption.get("pseudo"));
-        StatelessKieSession kieSession = kieBase.newStatelessKieSession(kieSessionConfig);
-
+        StatelessKieSession kieSession = kieBase.newStatelessKieSession();
         if (kieSession == null) {
             logger.warn("kieSession is null!");
             return null;
@@ -59,5 +56,15 @@ public class RuleAuditorImpl implements RuleAuditor {
         cmds.add(CommandFactory.newInsert(tradeAuditBo));
         kieSession.execute(CommandFactory.newBatchExecution(cmds));
         return scoreMap;
+    }
+
+    @Override
+    public void audit(Trade trade) {
+        KieSessionConfiguration kieSessionConfig = KieServices.get().newKieSessionConfiguration();
+//        kieSessionConfig.setOption(ClockTypeOption.get("pseudo"));
+        KieSession kieSession = kieBase.newKieSession();
+        kieSession.insert(trade);
+        kieSession.fireAllRules();
+        kieSession.dispose();
     }
 }
