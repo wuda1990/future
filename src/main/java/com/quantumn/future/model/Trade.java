@@ -1,7 +1,10 @@
 package com.quantumn.future.model;
 
+import org.kie.api.definition.type.Role;
+
 import java.util.Date;
 
+@Role(Role.Type.EVENT)
 public class Trade {
     long id;
     String card;

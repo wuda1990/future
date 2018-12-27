@@ -1,6 +1,7 @@
 package com.faster.fasterboot
 
 import com.quantumn.future.model.TradeAuditBo
+import com.quantumn.future.model.Trade
 import java.math.BigDecimal
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -12,7 +13,21 @@ rule "txnaudit"
         System.out.println("hit rule: past24hSuccTradeCnt>5");
 end
 
+
+
+declare window Ticks
+    Trade()
+        over window:length( 10 )
+end
+
+
 rule "txnaudit2"
     when
-       TradeAuditBo()
+        accumulate(Trade() from window Ticks,mycount:count(1))
+//      Number( intValue > 2 ) from accumulate(Trade() over window:length(5),count(1))
+//    Trade() over window:time(5m)
+    then
+        System.out.println("hit rule:count by slide window,value>2:"+mycount);
+
+end
 
