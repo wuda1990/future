@@ -13,8 +13,14 @@ public interface RuleAuditor {
 
     /**
      * 引擎审核
-     * @param trade
+     * @param tradeAuditBo
      * @return
      */
     Map audit(TradeAuditBo tradeAuditBo);
+
+    /**
+     * 引擎审核,stream mode
+     * @param trade
+     */
+    void audit(Trade trade);
 }
