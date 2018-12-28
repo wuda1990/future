@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -64,7 +65,14 @@ public class RuleAuditorImpl implements RuleAuditor {
 //        kieSessionConfig.setOption(ClockTypeOption.get("pseudo"));
         KieSession kieSession = kieBase.newKieSession();
         kieSession.insert(trade);
+//        Trade trade1 = new Trade();
+//        trade1.setId(102L);
+//        trade1.setCard("622021001131680505");
+//        trade1.setAmount(1000L);
+//        trade1.setTradeTime(new Date());
+//        trade1.setFlag("F");
+//        kieSession.insert(trade1);
         kieSession.fireAllRules();
-        kieSession.dispose();
+//        kieSession.dispose();
     }
 }
