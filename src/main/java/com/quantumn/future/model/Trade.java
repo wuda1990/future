@@ -1,10 +1,14 @@
 package com.quantumn.future.model;
 
+import org.kie.api.definition.type.Expires;
 import org.kie.api.definition.type.Role;
+import org.kie.api.definition.type.Timestamp;
 
 import java.util.Date;
 
 @Role(Role.Type.EVENT)
+@Timestamp("tradeTime")
+@Expires("1h")
 public class Trade {
     long id;
     String card;
