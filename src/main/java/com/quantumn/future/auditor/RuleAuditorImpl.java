@@ -65,6 +65,7 @@ public class RuleAuditorImpl implements RuleAuditor {
 //        kieSessionConfig.setOption(ClockTypeOption.get("pseudo"));
         KieSession kieSession = kieBase.newKieSession();
         kieSession.insert(trade);
+//        kieSession.fireUntilHalt();
 //        Trade trade1 = new Trade();
 //        trade1.setId(102L);
 //        trade1.setCard("622021001131680505");
