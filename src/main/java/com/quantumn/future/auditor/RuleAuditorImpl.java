@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
+@Service("RuleAuditor")
 public class RuleAuditorImpl implements RuleAuditor {
     private static final Logger logger = LogManager.getLogger(RuleAuditorImpl.class);
     private KieContainer kieContainer;
@@ -75,5 +75,10 @@ public class RuleAuditorImpl implements RuleAuditor {
 //        kieSession.insert(trade1);
         kieSession.fireAllRules();
 //        kieSession.dispose();
+    }
+
+    @Override
+    public void shutdown() {
+
     }
 }

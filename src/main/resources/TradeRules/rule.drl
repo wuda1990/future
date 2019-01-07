@@ -5,6 +5,7 @@ import com.quantumn.future.model.Trade
 import java.math.BigDecimal
 import java.util.concurrent.atomic.AtomicLong;
 
+
 rule "txnaudit"
     //no-loop true
     when
@@ -13,21 +14,51 @@ rule "txnaudit"
         System.out.println("hit rule: past24hSuccTradeCnt>5");
 end
 
-
-
 declare window Ticks
     Trade()
-        over window:length( 10 )
+        over window:time( 10m )
 end
 
 
-rule "txnaudit2"
-    when
-        accumulate(Trade() from window Ticks,mycount:count(1))
-//      Number( intValue > 2 ) from accumulate(Trade() over window:length(5),count(1))
-//    Trade() over window:time(5m)
-    then
-        System.out.println("hit rule:count by slide window,value>2:"+mycount);
+//rule "txnaudit2"
+//    when
+////        accumulate(Trade(flag=="S") from window Ticks,mycount:count(1))
+//      Number( intValue == 3 ) from accumulate(Trade(flag=="F") over window:length(5),count(1))
+////    Trade() over window:time(5m)
+//    then
+//        System.out.println("hit rule:count by slide length window");
+//
+//end
 
+rule "txnaudit3"
+when
+$trade1:Trade()
+$trade2:Trade(this after [1s,10s] $trade1)
+then
+System.out.println("first trade:"+$trade1.toString());
+System.out.println("second trade:"+$trade2.toString());
+ end
+
+//统计过去10m内失败交易的个数
+rule "txnaudit4"
+    when
+      $mycount: Number( intValue >=1 ) from accumulate($trade:Trade(flag=="F") over window:time(10m),count($trade))
+    then
+        System.out.println("hit rule counted by slide time window:"+$mycount);
+end
+
+//统计同一卡过去24小时失败交易金额
+rule "txnaudit5"
+when
+Trade($card:card)
+$totalAmt: Number( longValue()>=500) from accumulate(
+    $trade:Trade(flag=="F",card==$card,$amount:amount) over window:time(24h),
+    sum($amount)
+//    init(long totalAmount=0;),action(totalAmount+=$amount;),
+//    result(new Long(totalAmount))
+)
+then
+//打印次数等于同卡的交易笔数
+System.out.println("hit rule txnaudit5,card:"+$card+" totalAmount:"+$totalAmt);
 end
 
