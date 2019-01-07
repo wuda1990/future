@@ -8,7 +8,10 @@ import com.quantumn.future.model.Trade;
 import com.quantumn.future.model.TradeAuditBo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -18,6 +21,7 @@ import java.util.Date;
 @SpringBootTest
 public class FutureApplicationTests {
 
+    @Qualifier("RuleAuditor")
     @Autowired
     RuleAuditor ruleAuditor;
 
@@ -39,15 +43,17 @@ public class FutureApplicationTests {
         trade.setCard("622021001131680503");
         trade.setAmount(2000L);
         trade.setTradeTime(new Date());
+        trade.setFlag("F");
         ruleAuditor.audit(trade);
         Trade trade1 = new Trade();
         trade1.setId(102L);
         trade1.setCard("622021001131680505");
         trade1.setAmount(1000L);
         trade1.setTradeTime(new Date());
+        trade1.setFlag("S");
         ruleAuditor.audit(trade1);
-//        ruleAuditor.audit(trade);
     }
+
 
 }
 
