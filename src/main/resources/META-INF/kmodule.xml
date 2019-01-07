@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <kmodule xmlns="http://www.drools.org/xsd/kmodule">
-    <kbase name="rules" packages="TradeRules">
-        <!--<ksession name="trade-rules"></ksession>-->
-        <!--<ksession name="stateless-trade-rules" type="stateless" />-->
+    <kbase name="rules"  packages="TradeRules" eventProcessingMode="stream" default="true">
+        <ksession name="trade-rules" default="true" clockType="realtime"></ksession>
+        <ksession name="test-trade-rules" default="true" clockType="realtime"></ksession>
+        <ksession name="test-pseudo-trade-rules"  clockType="pseudo" />
+    </kbase>
+    <kbase name="simple-rules" packages="SimpleRules">
+        <ksession name="simple-rules"/>
     </kbase>
 </kmodule>
