@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+  http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+  http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+  http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <!--
+     !   If you are running on JBoss you will need to copy a camel-jboss.jar into the lib and set this ClassLoader configuration
+     !  http://camel.apache.org/camel-jboss.html
+     !   <bean id="jbossResolver" class="org.apache.camel.jboss.JBossPackageScanClassResolver"/>
+     -->
+
+    <!--
+     !   Define the server end point.
+     !   Copy and paste this element, changing id and the address, to expose services on different urls.
+     !   Different Camel routes can handle different end point paths.
+     -->
+    <cxf:rsServer id="rsServer"
+                  address="/rest"
+                  serviceClass="org.kie.jax.rs.CommandExecutorImpl">
+        <cxf:providers>
+            <bean class="org.kie.jax.rs.CommandMessageBodyReader"/>
+        </cxf:providers>
+    </cxf:rsServer>
+
+
+    <!-- Leave this, as it's needed to make Camel "drools" aware -->
+    <bean id="kiePolicy" class="org.kie.camel.component.KiePolicy" />
+
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <!--
+         ! Routes incoming messages from end point id="rsServer".
+         ! Example route unmarshals the messages with xstream and executes against ksession1.
+         ! Copy and paste this element, changing marshallers and the 'to' uri, to target different sessions, as needed.
+         !-->
+
+        <route>
+            <from uri="cxfrs://bean://rsServer"/>
+            <policy ref="kiePolicy">
+                <unmarshal ref="xstream" />
+                <to uri="kie:ksession1" />
+                <marshal ref="xstream" />
+            </policy>
+        </route>
+
+
+    </camelContext>
+
+</beans>
+
