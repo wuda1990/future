@@ -7,7 +7,7 @@ import org.kie.api.runtime.KieContainer;
 
 public class KieContainerFactory {
 
-     static  KieContainer kieContainer;
+    private static  KieContainer kieContainer;
 
     public static KieContainer getKieContainer() {
         if (kieContainer == null) {

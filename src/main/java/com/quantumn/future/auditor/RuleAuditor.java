@@ -23,4 +23,9 @@ public interface RuleAuditor {
      * @param trade
      */
     void audit(Trade trade);
+
+    /**
+     *
+     */
+    void shutdown();
 }
