@@ -80,12 +80,62 @@ public class BinaryTree {
         root.left = new TreeNode(9);
         root.right = new TreeNode(20);
         root.left.left = new TreeNode(4);
-        root.left.right = null;
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
-        BinaryTree binaryTree = new BinaryTree();
-//        System.out.println("result:"+binaryTree.maxDepth(root));
-        List<List<Integer>> result = binaryTree.levelOrder(root);
-        System.out.println("ok");
     }
+
+
+        int minLength = Integer.MAX_VALUE;
+        public int minDepth (TreeNode root){
+            return dfs(root);
+        }
+
+        int dfs (TreeNode root){
+            if (root == null) {
+                return 0;
+            }
+            if (root.left == null && root.right == null) {
+                return 1;
+            }
+            int leftDepth = Integer.MAX_VALUE;
+            int rightDepth = Integer.MAX_VALUE;
+            if (root.left != null) {
+                leftDepth = dfs(root.left);
+            }
+            if (root.right != null) {
+                rightDepth = dfs(root.right);
+            }
+            if (leftDepth < rightDepth) {
+                return leftDepth + 1;
+            } else {
+                return rightDepth + 1;
+            }
+        }
+
+        //广度优先算法，找到叶子结点就可以退出
+        public int minDepthByWDS (TreeNode root){
+            LinkedList<Pair<TreeNode, Integer>> stack = new LinkedList<>();
+            if (root == null) {
+                return 0;
+            } else {
+                stack.add(new Pair(root, 1));
+            }
+            int current_depth = 0;
+            while (!stack.isEmpty()) {
+                Pair<TreeNode, Integer> current = stack.poll();
+                root = current.getKey();
+                current_depth = current.getValue();
+                if ((root.left == null) && (root.right == null)) {
+                    break;
+                }
+                if (root.left != null) {
+                    stack.add(new Pair(root.left, current_depth + 1));
+                }
+                if (root.right != null) {
+                    stack.add(new Pair(root.right, current_depth + 1));
+                }
+            }
+            return current_depth;
+        }
+
+
+
 }
