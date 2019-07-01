@@ -25,6 +25,7 @@ public class Memoizer3<A,V> implements Computable<A,V> {
             return f.get();
         } catch (ExecutionException e) {
             e.printStackTrace();
+            return null;
         }
     }
 }
