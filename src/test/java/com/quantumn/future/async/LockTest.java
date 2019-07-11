@@ -55,4 +55,23 @@ public class LockTest {
         log.info("page count is :"+ f2.get());
     }
 
+    static final int SHARED_SHIFT   = 16;
+    static final int SHARED_UNIT    = (1 << SHARED_SHIFT);
+    static final int MAX_COUNT      = (1 << SHARED_SHIFT) - 1;
+    static final int EXCLUSIVE_MASK = (1 << SHARED_SHIFT) - 1;
+
+    /** Returns the number of shared holds represented in count  */
+    static int sharedCount(int c)    { return c >>> SHARED_SHIFT; }
+    /** Returns the number of exclusive holds represented in count  */
+    static int exclusiveCount(int c) { return c & EXCLUSIVE_MASK; }
+
+    @Test
+    public void testRightShift() {
+        System.out.println(SHARED_SHIFT);
+        System.out.println(EXCLUSIVE_MASK);
+        System.out.println("shared:"+sharedCount(-1));
+        System.out.println("shared:"+sharedCount(SHARED_UNIT+3));
+        System.out.println("exclusive:"+exclusiveCount(SHARED_UNIT));
+    }
+
 }
