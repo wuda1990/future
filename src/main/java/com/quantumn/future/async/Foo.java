@@ -1,56 +1,108 @@
 package com.quantumn.future.async;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Foo {
-    public Foo() {
+    Object lock1;
+    Object lock2;
 
-        objectList.add(new Object());
-        objectList.add(new Object());
+    public Foo() {
+        lock1 = new Object();
+        lock2 = new Object();
     }
-    List<Object> objectList = new ArrayList<>(2);
 
     public void first(Runnable printFirst) throws InterruptedException {
 
-
-        // printFirst.run() outputs "first". Do not change or remove this line.
-        printFirst.run();
-        objectList.get(0).notifyAll();
+         synchronized (lock1) {
+            printFirst.run();
+            lock1.notifyAll();
+        }
     }
 
     public void second(Runnable printSecond) throws InterruptedException {
-        objectList.get(0).wait();
+        synchronized (lock1){
+            lock1.wait();
+            // printSecond.run() outputs "second". Do not change or remove this line.
+            synchronized (lock2) {
+                printSecond.run();
+                lock2.notifyAll();
+            }
+        }
 
-        // printSecond.run() outputs "second". Do not change or remove this line.
-        printSecond.run();
-        objectList.get(1).notifyAll();
     }
 
     public void third(Runnable printThird) throws InterruptedException {
+        synchronized (lock2) {
+                lock2.wait();
+                // printThird.run() outputs "third". Do not change or remove this line.
+                printThird.run();
+        }
 
-        objectList.get(1).wait();
-        // printThird.run() outputs "third". Do not change or remove this line.
         printThird.run();
     }
 
     public static void main(String[] args) {
-        Foo foo = new Foo();
+        FooReentrant foo = new FooReentrant();
         AsyncFoo1 asyncFoo1 = new AsyncFoo1(foo,()-> System.out.println("one"));
         AsyncFoo2 asyncFoo2 = new AsyncFoo2(foo,()-> System.out.println("two"));
         AsyncFoo3 asyncFoo3 = new AsyncFoo3(foo,()-> System.out.println("three"));
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
-        executorService.submit(asyncFoo2);
-        executorService.submit(asyncFoo1);
-        executorService.submit(asyncFoo3);
-
-
+        asyncFoo1.start();
+        asyncFoo2.start();
+        asyncFoo3.start();
     }
 }
 
-class AsyncFoo1 implements Runnable{
+class FooReentrant extends Foo{
+    ReentrantLock lock ;
+    Condition secondCondition;
+    Condition thirdCondition;
+    public FooReentrant(){
+        lock = new ReentrantLock();
+        secondCondition = lock.newCondition();
+        thirdCondition = lock.newCondition();
+    }
+    public void first(Runnable printFirst) {
+        lock.lock();
+        System.out.println("run first");
+        printFirst.run();
+        secondCondition.signal();
+        lock.unlock();
+    }
+
+    public void second(Runnable printSecond){
+        lock.lock();
+        try {
+            System.out.println("run second ");
+            secondCondition.await();
+            System.out.println("print second");
+            printSecond.run();
+            thirdCondition.signal();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+    }
+
+    public void third(Runnable printThird) {
+        lock.lock();
+        try {
+            System.out.println("run third");
+            thirdCondition.await();
+            System.out.println("print third");
+            printThird.run();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+    }
+}
+
+class AsyncFoo1 extends Thread{
     Foo foo;
     Runnable runnable;
 
@@ -69,7 +121,7 @@ class AsyncFoo1 implements Runnable{
         }
     }
 }
-class AsyncFoo2 implements Runnable{
+class AsyncFoo2 extends Thread{
     Foo foo;
     Runnable runnable;
 
@@ -88,7 +140,7 @@ class AsyncFoo2 implements Runnable{
         }
     }
 }
-class AsyncFoo3 implements Runnable{
+class AsyncFoo3 extends Thread{
     Foo foo;
     Runnable runnable;
 
