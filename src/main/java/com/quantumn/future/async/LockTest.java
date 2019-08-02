@@ -4,9 +4,12 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockTest {
-    final ReentrantLock lock ;
-    final Condition secondCondition;
-    final Condition thirdCondition;
+//    final ReentrantLock lock ;
+//    final Condition secondCondition;
+//    final Condition thirdCondition;
+
+    public static ReentrantLock lock=new ReentrantLock();
+    public static Condition condition =lock.newCondition();
 
     public static void main(String[] args) {
         LockTest lockTest = new LockTest();
@@ -28,21 +31,21 @@ public class LockTest {
 //                lockTest.third();
 //            }
 //        });
-        threadA.start();
         threadB.start();
+        threadA.start();
 //        threadC.start();
     }
 
-    public LockTest(){
-        lock = new ReentrantLock();
-        secondCondition = lock.newCondition();
-        thirdCondition = lock.newCondition();
-    }
+//    public LockTest(){
+//        lock = new ReentrantLock();
+//        secondCondition = lock.newCondition();
+//        thirdCondition = lock.newCondition();
+//    }
     public void first() {
         lock.lock();
         try {
             System.out.println("print first");
-            secondCondition.signal();
+            condition.signal();
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -53,8 +56,8 @@ public class LockTest {
     public void second(){
         lock.lock();
         try {
-            System.out.println("run second ");
-            secondCondition.await();
+            System.out.println("second is waiting...");
+            condition.await();
             System.out.println("print second");
 //            thirdCondition.signal();
         } catch (InterruptedException e) {
@@ -64,16 +67,16 @@ public class LockTest {
         }
     }
 
-    public void third() {
-        lock.lock();
-        try {
-            System.out.println("run third");
-            thirdCondition.await();
-            System.out.println("print third");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }finally {
-            lock.unlock();
-        }
-    }
+//    public void third() {
+//        lock.lock();
+//        try {
+//            System.out.println("run third");
+//            thirdCondition.await();
+//            System.out.println("print third");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }finally {
+//            lock.unlock();
+//        }
+//    }
 }
