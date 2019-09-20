@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
-public class LockTest {
+public class LockExample {
     Integer pageCount = 0;
     @Test
     public void testReadWriteLock() throws ExecutionException, InterruptedException {

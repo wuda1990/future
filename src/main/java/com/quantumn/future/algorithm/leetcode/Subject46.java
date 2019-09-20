@@ -1,4 +1,4 @@
-package com.quantumn.future.algorithm;
+package com.quantumn.future.algorithm.leetcode;
 
 import java.util.*;
 

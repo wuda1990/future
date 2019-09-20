@@ -17,6 +17,23 @@ public class BinaryTree {
         return Math.max(leftDepth,rightDepth) + 1;
     }
 
+    //给一个数组，构造一棵树
+    public BinaryTree(Integer[] array) {
+        Queue<Pair<Integer,Integer>> queue = new LinkedList<>();
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                queue.offer(new Pair<>(array[i],i));
+            }
+        }
+        while (!queue.isEmpty()) {
+            Pair<Integer,Integer> pair = queue.poll();
+            TreeNode node = new TreeNode(pair.getKey());
+            if (pair.getValue() < array.length) {
+//                node.left = array[pair.getValue() + 1];
+            }
+        }
+    }
+
     class TreeLevelNode {
         TreeNode node;
         Integer level;

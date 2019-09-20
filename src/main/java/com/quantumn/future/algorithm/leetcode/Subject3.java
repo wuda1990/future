@@ -1,4 +1,4 @@
-package com.quantumn.future.algorithm;
+package com.quantumn.future.algorithm.leetcode;
 
 import java.util.*;
 
@@ -52,11 +52,27 @@ public class Subject3 {
     }
 
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("abcabcbb"));
-        System.out.println(lengthOfLongestSubstring("abcbbcbb"));
-        System.out.println(lengthOfLongestSubstring("bbbbb"));
-        System.out.println(lengthOfLongestSubstring("pwwkew"));
-        System.out.println(lengthOfLongestSubstring(" "));
-        System.out.println(lengthOfLongestSubstring("dvdf"));
+        System.out.println(getLengthOfLongestSubString("abcabcbb"));
+        System.out.println(getLengthOfLongestSubString("abcbbcbb"));
+        System.out.println(getLengthOfLongestSubString("bbbbb"));
+        System.out.println(getLengthOfLongestSubString("pwwkew"));
+        System.out.println(getLengthOfLongestSubString(" "));
+        System.out.println(getLengthOfLongestSubString("dvdf"));
+    }
+
+    //基于滑动窗口的模式去查找字符串的子串
+    public static int getLengthOfLongestSubString(String s){
+        int i = 0,  j = 0, ans = 0;
+        HashSet set = new HashSet();
+        int len = s.length();
+        while (i < len && j < len) {
+            if (!set.contains(s.charAt(j))) {
+                set.add(s.charAt(j++));
+                ans = Math.max(ans, j - i);
+            } else {
+                set.remove(s.charAt(i++));
+            }
+        }
+        return ans;
     }
 }
