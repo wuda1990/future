@@ -4,62 +4,48 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockTest {
-//    final ReentrantLock lock ;
-//    final Condition secondCondition;
-//    final Condition thirdCondition;
-
-    public static ReentrantLock lock=new ReentrantLock();
-    public static Condition condition =lock.newCondition();
+    final ReentrantLock lock ;
+    final Condition secondCondition;
+    final Condition thirdCondition;
+    volatile boolean isFirstFinished = false;
+    volatile boolean isSecondFinished = false;
 
     public static void main(String[] args) {
         LockTest lockTest = new LockTest();
-        Thread threadA = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                lockTest.first();
-            }
-        });
-        Thread threadB = new Thread((new Runnable() {
-            @Override
-            public void run() {
-                lockTest.second();
-            }
-        }));
-//        Thread threadC = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                lockTest.third();
-//            }
-//        });
-        threadB.start();
+        Thread threadA = new Thread(() -> lockTest.first(()-> System.out.println("one")));
+        Thread threadB = new Thread((() -> lockTest.second(()-> System.out.println("two"))));
+        Thread threadC = new Thread(() -> lockTest.third(()-> System.out.println("three")));
+
         threadA.start();
-//        threadC.start();
+        threadB.start();
+        threadC.start();
     }
 
-//    public LockTest(){
-//        lock = new ReentrantLock();
-//        secondCondition = lock.newCondition();
-//        thirdCondition = lock.newCondition();
-//    }
-    public void first() {
+    public LockTest(){
+        lock = new ReentrantLock();
+        secondCondition = lock.newCondition();
+        thirdCondition = lock.newCondition();
+    }
+    public void first(Runnable printOne) {
         lock.lock();
         try {
-            System.out.println("print first");
-            condition.signal();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
+            printOne.run();
+            isFirstFinished = true;
+            secondCondition.signal();
+        } finally {
             lock.unlock();
         }
     }
 
-    public void second(){
+    public void second(Runnable printTwo){
         lock.lock();
         try {
-            System.out.println("second is waiting...");
-            condition.await();
-            System.out.println("print second");
-//            thirdCondition.signal();
+            while(!isFirstFinished) {
+                secondCondition.await();
+            }
+            printTwo.run();
+            isSecondFinished = true;
+            thirdCondition.signal();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }finally {
@@ -67,16 +53,17 @@ public class LockTest {
         }
     }
 
-//    public void third() {
-//        lock.lock();
-//        try {
-//            System.out.println("run third");
-//            thirdCondition.await();
-//            System.out.println("print third");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }finally {
-//            lock.unlock();
-//        }
-//    }
+    public void third(Runnable printThird) {
+        lock.lock();
+        try {
+            while (!isSecondFinished) {
+                thirdCondition.await();
+            }
+            printThird.run();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+    }
 }
