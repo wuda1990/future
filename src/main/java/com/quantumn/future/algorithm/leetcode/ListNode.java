@@ -19,5 +19,6 @@ public class ListNode {
             System.out.print("->"+p.val);
             p = p.next;
         }
+        System.out.println();
     }
 }
