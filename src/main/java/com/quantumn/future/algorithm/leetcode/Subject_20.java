@@ -50,6 +50,7 @@ public class Subject_20 {
     public boolean isValid2(String s) {
         LinkedList<Character> stack = new LinkedList<>();
         for (int i = 0; i < s.length(); i++) {
+
             char value = s.charAt(i);
             if ('(' == value || '{' == value || '[' == value) {
                 stack.push(value);
