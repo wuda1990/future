@@ -52,6 +52,7 @@ public class Subject_21 {
 
     /**
      * 链表的大神递归解法
+     * 这种递归分支就一个，是线性的！
      * @param l1
      * @param l2
      * @return
