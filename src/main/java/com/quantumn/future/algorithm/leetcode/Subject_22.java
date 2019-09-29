@@ -25,60 +25,137 @@ import java.util.List;
 public class Subject_22 {
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
-        LinkedList<Character> stack = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
-        permute(ans,sb,stack,n);
+        char[] str = new char[2 * n];
+        permute(ans,str,0,0,0);
+//        permute(ans, sb, 0, n);
+//        permute(ans, sb, 0, 0, n);
+//        permute(ans, "", 0, 0, n);
         return ans;
     }
 
-    int leftCount=0;
-    int rightCount=0;
-
-    private void permute(List<String> ans,StringBuilder sb, LinkedList<Character> stack, int n){
-        if (sb.length() > 0) {
-            char value = sb.charAt(sb.length() - 1);
-            if ('(' == value) {
-                stack.push(value);
-                leftCount++;
-            } else {
-                char top = stack.isEmpty() ? '#' : stack.pop();
-                if (')' == value && '(' != top) {
-                    return;
-                }
-                rightCount++;
+    /**
+     * 其实这就是生成一个完全二叉树的情况，高度为n
+     * str代表了从根节点到叶子节点的一条路径
+     *  理解：当一个子递归执行完了，执行链路会自动回退到上一个递归；也就是当一个节点所有的子节点都遍历完了，才会访问这个节点的下一个节点，
+     *  即深度遍历
+     * @param ans  返回的list
+     * @param str  存储当前递归路径
+     * @param pos  当前递归的深度
+     * @param sum  当前递归路径上所有数的和,左括号加1,右括号减1
+     * @param left_count 当前递归路径上左括号的个数
+     */
+    private void permute(List<String> ans,char[] str ,int pos,int sum,int left_count){
+        if (sum < 0 || left_count>str.length/2)  return;
+        if (str.length == pos) {
+            if (sum == 0) {
+                ans.add(new String(str));
             }
-        }
-        if(n==0)  {
-            String str = sb.toString();
-            ans.add(str);
             return;
         }
-
-        if (leftCount < n) {
-            sb.append('(');
-            permute(ans,sb,stack,n-1);
-            sb.deleteCharAt(sb.length() - 1);
-        }
-
-        sb.append(')');
-        permute(ans,sb,stack,n-1);
+        str[pos] = '(';
+//        sum++;left_count++;
+        permute(ans, str, pos+1,sum+1,left_count+1);
+        /**
+         *  当要执行下一个递归函数时（循环迭代到下一轮时），即要访问当前节点的下一个节点时，需要把当前节点的状态清除，因为该状态只能
+         *  影响到当前节点
+         * 这种情况可以简化即当前节点的变量保持不变，将其传递到子节点中，因为直到叶子节点才会进行真正的计算
+         */
+//        sum--;left_count--;
+        //开始右括号遍历
+        str[pos] = ')';
+//        sum--;
+        permute(ans,str,pos+1,sum-1,left_count);
+        //清除当前节点的状态
+//        sum++;
     }
 
-    private boolean isValid(String s) {
-        LinkedList<Character> stack = new LinkedList<>();
-        for (int i = 0; i < s.length(); i++) {
-
-            char value = s.charAt(i);
-            if ('(' == value) {
-                stack.push(value);
-                continue;
+    /**
+     * 参考了以前递归的方法，但为掌握核心
+     * 以前之所以用StringBuilder 或 list去存递归路径上的值，是因为在具体添加元素到递归路径的时候，逻辑里（可能是个判断)需要用到这个递归路径
+     * str[pos], sb.apend都是添加元素到递归路径里，pos增加，sb增加，递归的深度也就增加了
+     * 在一个方法里，执行几次递归，则代表了每次递归时会出现多少种情况，如左子树，右子树；又如(,)；又如电话号码2代表的a,b,c
+     * 其实就是一个节点会有多少子节点
+     * 理解：当一个子递归执行完了，执行链路会自动回退到上一个递归；也就是当一个节点所有的子节点都遍历完了，才会访问这个节点的下一个节点，
+     * 即深度遍历
+     * @param ans
+     * @param sb
+     * @param index
+     * @param n
+     */
+    private void permute(List<String> ans, StringBuilder sb, int index,int n) {
+        if (sb.length() == 2*n) {
+            String str = sb.toString();
+            if (isValid(str.toCharArray())){
+                ans.add(str);
             }
-            char top = stack.isEmpty() ? '#' : stack.pop();
-            if (')' == value &&'(' != top) {
-                return false;
-            }
+            return;
         }
-        return stack.isEmpty();
+        sb.append('(');
+        permute(ans, sb, index + 1,n);
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(')');
+        permute(ans, sb, index + 1,n);
+        sb.deleteCharAt(sb.length() - 1);
+    }
+
+    /**
+     *
+     * @param ans 返回list
+     * @param sb  递归当前路径
+     * @param open 左括号的个数
+     * @param close 右括号的个数
+     * @param n
+     */
+    private void permute(List<String> ans, StringBuilder sb, int open, int close, int n) {
+        if (sb.length() == 2 * n) {
+            ans.add(sb.toString());
+            return;
+        }
+        if (open < n) {
+            permute(ans,sb.append('('),open+1,close,n);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if (close < open) {
+            permute(ans,sb.append(')'),open,close+1,n);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+
+    /**
+     *
+     * @param ans 返回list
+     * @param cur  递归当前字符串
+     * @param open 左括号的个数
+     * @param close 右括号的个数
+     * @param n
+     */
+    private void permute(List<String> ans, String cur, int open, int close, int n) {
+        if (cur.length() == 2 * n) {
+            ans.add(cur);
+            return;
+        }
+        //这两个if分别是递归里两个节点，互不影响
+        if (open < n) {
+            permute(ans,cur+'(',open+1,close,n);
+        }
+        if (close < open) {
+            permute(ans,cur+')',open,close+1,n);
+        }
+    }
+
+    private boolean isValid(char[] str) {
+        int sum = 0;
+        for (int i = 0; i < str.length; i++) {
+            char value = str[i];
+            if ('(' == value) {
+                sum++;
+            } else {
+               sum--;
+            }
+            if (sum<0) return false;
+        }
+        return sum==0;
     }
 
     public static void main(String[] args) {
