@@ -19,7 +19,7 @@ package com.quantumn.future.algorithm.leetcode;
  */
 public class Subject_26 {
     /**
-     * 双指针算法，最好用画图的方法，才能清除指针i，j指针是如何在数组上移动的
+     * 双指针算法，最好用画图的方法，才能清楚指针i，j指针是如何在数组上移动的
      * @param nums
      * @return
      */
