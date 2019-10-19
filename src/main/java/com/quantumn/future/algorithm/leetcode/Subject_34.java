@@ -26,7 +26,6 @@ public class Subject_34 {
             return new int[]{-1, -1};
         }
         int mid = (left + right) / 2;
-        int[] ans = new int[2];
         if (target == nums[mid]) {
             return getRange(nums, target, mid, left, right);
         }
@@ -37,36 +36,37 @@ public class Subject_34 {
         }
     }
 
-    private int[] getRange(int[] nums,int target,int mid, int left, int right){
-        int[] ans = new int[]{-1,-1};
+    //找到某个等于target的位置，分别向左和向右找到边界.
+    private int[] getRange(int[] nums ,int target,int mid, int left, int right){
+        int[] ans = new int[]{mid,mid};
+        //获取左边界位置
         int low = left;
         int high = mid-1;
 
         while (low <= high) {
             int middle = (low + high) / 2;
+            //middle值等于target,则继续像左半边查找，否则向右半边查找
             if (target == nums[middle]) {
                 ans[0] = middle;
-                break;
+                high = middle-1;
             }else {
                 low = middle + 1;
             }
         }
-        if (ans[0] == -1) ans[0] = mid;
 
-        //获取end位置
-
+        //获取右边界位置
         low = mid + 1;
         high = right;
         while (low <= high) {
             int middle = (low + high) / 2;
+            //middle值等于target,则继续像右半边查找，否则向左半边查找
             if (target == nums[middle]) {
                 ans[1] = middle;
-                break;
+                low = middle + 1;
             }else {
                 high = middle - 1;
             }
         }
-        if (ans[1] == -1) ans[1] = mid;
 
         return ans;
     }
