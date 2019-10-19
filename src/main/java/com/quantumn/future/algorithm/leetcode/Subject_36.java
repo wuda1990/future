@@ -79,14 +79,14 @@ public class Subject_36 {
                 if ('.' == board[i][j]) {
                     continue;
                 }
-                int num = board[i][j] - 48;
-                // 处理行
+                int num = board[i][j] - '0';
+                //take rows
                 if ((rowCnt[i] >> num) % 2 == 1) {
                     return false;
                 } else {
                     rowCnt[i] += 1 << num;
                 }
-                // 处理列
+                //take columns
                 if ((colCnt[j] >> num) % 2 == 1) {
                     return false;
                 } else {
