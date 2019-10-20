@@ -49,6 +49,7 @@ public class Subject_42 {
     //将每个数i对应的max_left,max_right用一次遍历算出并存在数组里，可以达到O(n)的时间复杂度
     //题解中称之为动态规划，不知道准不准确
     public int trap2(int[] height) {
+        if(height.length==0) return 0;
         int[] max_left = new int[height.length];
         int[] max_right = new int[height.length];
         max_left[0] = height[0];
