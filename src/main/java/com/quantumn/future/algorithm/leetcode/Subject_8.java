@@ -1,6 +1,7 @@
 package com.quantumn.future.algorithm.leetcode;
 
 /**
+ * 字符串转换整数
  * 实现一个 atoi 函数，使其能将字符串转换成整数。
  *
  * 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
