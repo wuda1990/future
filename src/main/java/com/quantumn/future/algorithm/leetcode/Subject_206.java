@@ -1,6 +1,7 @@
 package com.quantumn.future.algorithm.leetcode;
 
 /**
+ * 反转链表
  * 反转一个单链表。
  * <p>
  * 示例:

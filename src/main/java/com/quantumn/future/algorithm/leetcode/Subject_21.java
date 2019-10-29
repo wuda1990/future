@@ -3,6 +3,7 @@ package com.quantumn.future.algorithm.leetcode;
 import org.mvel2.util.Make;
 
 /**
+ * 合并两个有序链表
  * 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
  *
  * 示例：

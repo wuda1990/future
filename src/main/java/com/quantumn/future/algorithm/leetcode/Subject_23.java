@@ -1,6 +1,7 @@
 package com.quantumn.future.algorithm.leetcode;
 
 /**
+ * 合并k个排序链表
  * 合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。
  *
  * 示例:
