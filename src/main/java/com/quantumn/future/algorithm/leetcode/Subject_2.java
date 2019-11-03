@@ -21,6 +21,7 @@ import org.apache.poi.ss.formula.functions.Sumxmy2;
  */
 public class Subject_2 {
 
+    //学习到哑节点如何用来创建链表
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1);
         ListNode cur = dummy;
