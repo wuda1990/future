@@ -52,6 +52,10 @@ public class Subject_17 {
 
     /**
      * 队列实现
+     * 构思巧妙，利用队列来实现穷尽电话号码的各种可能
+     * i：数字的长度，遍历的深度
+     * ans，队列，长度短的先入队，这次遍历生成的组合接着入队，
+     * 每次遍历都处理同一长度的队列数据
      */
     public List<String> letterCombinations2(String digits) {
         LinkedList<String> ans = new LinkedList<String>();
@@ -60,6 +64,7 @@ public class Subject_17 {
         ans.add("");
         for(int i =0; i<digits.length();i++){
             int x = Character.getNumericValue(digits.charAt(i));
+            //ans.peek()只是获取在队列头部的数据
             while(ans.peek().length()==i){
                 String t = ans.remove();
                 for(char s : mapping[x].toCharArray())

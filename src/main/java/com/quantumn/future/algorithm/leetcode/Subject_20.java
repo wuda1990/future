@@ -22,8 +22,8 @@ import java.util.LinkedList;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Subject_20 {
+    //这里用到栈的弹入弹出
     public boolean isValid(String s) {
-
         LinkedList<Character> stack = new LinkedList<>();
         for (int i = 0; i < s.length(); i++) {
             char value = s.charAt(i);
@@ -48,6 +48,7 @@ public class Subject_20 {
         return stack.isEmpty();
     }
 
+    //当栈为空的时候，弹出'#'代替
     public boolean isValid2(String s) {
         LinkedList<Character> stack = new LinkedList<>();
         for (int i = 0; i < s.length(); i++) {

@@ -17,8 +17,8 @@ import org.mvel2.util.Make;
  */
 public class Subject_21 {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode head = new ListNode(0);
-        ListNode p = head;
+        ListNode dummy = new ListNode(0);
+        ListNode p = dummy;
         ListNode p1 = l1;
         ListNode p2 = l2;
         while (p1 != null && p2 != null) {
@@ -37,7 +37,7 @@ public class Subject_21 {
         } else {
             p.next = p2;
         }
-        return head.next;
+        return dummy.next;
     }
 
     public static void main(String[] args) {
@@ -48,7 +48,7 @@ public class Subject_21 {
         l2.append(new ListNode(3)).append(new ListNode(4));
         l1.print();
         l2.print();
-        demo.mergeTwoLists2(l1, l2).print();
+        demo.mergeTwoLists(l1, l2).print();
     }
 
     /**

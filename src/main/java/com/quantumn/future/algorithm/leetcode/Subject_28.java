@@ -13,7 +13,6 @@ package com.quantumn.future.algorithm.leetcode;
 public class Subject_28 {
     public int strStr(String haystack, String needle) {
         if(needle.length() == 0) return 0;
-        needle.indexOf(haystack);
         for (int i = 0; i < haystack.length(); i++) {
             int j = i;//haystack字符串指针
             int k = 0;//needle字符串指针
