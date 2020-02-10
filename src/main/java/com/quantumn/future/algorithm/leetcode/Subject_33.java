@@ -45,6 +45,7 @@ public class Subject_33 {
         if (target == nums[middle]) return middle;
         if (nums[middle] < nums[left]) {
             //middle将数组分成两半，一半肯定是有序的，一半是无序的，先判断target是否在有序的一半里
+            // 4560123这种情况，if 0<=target<=4,则只需在数组右半边查找，否则在左半边查找，即4560
             if (nums[middle] < target && target < nums[left]) {
                 return search(nums, middle + 1, right, target);
             } else {
@@ -52,6 +53,7 @@ public class Subject_33 {
             }
         } else {
             //middle将数组分成两半，一半肯定是有序的，一半是无序的，先判断target是否在有序的一半里
+            //4567012这种情况，if 4<=target<=7,则需在数组左半边查找，否则在右半边查找
             if (nums[left] <= target && target < nums[middle]) {
                 return search(nums, left, middle - 1, target);
             } else {

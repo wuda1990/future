@@ -42,18 +42,18 @@ public class Subject_46 {
             ans.add(takedList);
 
         }
-//        for (int i=0;i<nums.length-takedSets.size();i++) {
-            for (Integer num : nums) {
-                if (!takedList.contains(num)) {
-                    /**
-                     * takedList是模拟组合中的拿黑盒子里的球
-                     */
-                    ArrayList<Integer> ownTakedList = new ArrayList<Integer>(takedList);
-                    ownTakedList.add(num);
-                    ans.addAll(myfunc(nums, ownTakedList,index+1));
-                }
+
+        for (Integer num : nums) {
+            if (!takedList.contains(num)) {
+                /**
+                 * takedList是模拟组合中的拿黑盒子里的球
+                 * 每次定义新的list到下一次递归
+                 */
+                ArrayList<Integer> ownTakedList = new ArrayList<Integer>(takedList);
+                ownTakedList.add(num);
+                ans.addAll(myfunc(nums, ownTakedList,index+1));
             }
-//        }
+        }
         return ans;
     }
 
@@ -86,6 +86,6 @@ public class Subject_46 {
 
     public static void main(String[] args) {
         Subject_46 demo = new Subject_46();
-        demo.permute(new int[]{1,2,3});
+        demo.permute2(new int[]{1,2,3});
     }
 }

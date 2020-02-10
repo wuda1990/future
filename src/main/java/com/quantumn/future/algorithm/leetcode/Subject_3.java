@@ -48,7 +48,7 @@ public class Subject_3 {
         return maxLength;
     }
 
-    //通过map存储当前的字符存在过得位置
+    //滑动窗口法，通过map存储当前的字符存在过得位置
     //这里用i记录子串start位置，j定义子串end位置
     public int lengthOfLongestSubstring2(String s) {
         int n = s.length(), ans = 0;
@@ -64,7 +64,7 @@ public class Subject_3 {
         return ans;
     }
 
-    //通过一个set存储当前循环的子串
+    //滑动窗口法，通过一个set存储当前循环的子串
     //这里用i记录子串start位置，j定义子串end位置
     public int lengthOfLongestSubstring3(String s) {
         int n = s.length();
@@ -85,11 +85,11 @@ public class Subject_3 {
 
     public static void main(String[] args) {
         Subject_3 demo = new Subject_3();
-        System.out.println(demo.lengthOfLongestSubstring("abcabcbb"));
-        System.out.println(demo.lengthOfLongestSubstring("abcbbcbb"));
-        System.out.println(demo.lengthOfLongestSubstring("bbbbb"));
-        System.out.println(demo.lengthOfLongestSubstring("pwwkew"));
-        System.out.println(demo.lengthOfLongestSubstring(" "));
-        System.out.println(demo.lengthOfLongestSubstring("dvdf"));
+        System.out.println(demo.lengthOfLongestSubstring3("abcabcbb"));
+        System.out.println(demo.lengthOfLongestSubstring3("abcbbcbb"));
+        System.out.println(demo.lengthOfLongestSubstring3("bbbbb"));
+        System.out.println(demo.lengthOfLongestSubstring3("pwwkew"));
+        System.out.println(demo.lengthOfLongestSubstring3(" "));
+        System.out.println(demo.lengthOfLongestSubstring3("dvdf"));
     }
 }

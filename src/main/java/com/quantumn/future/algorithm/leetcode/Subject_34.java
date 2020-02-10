@@ -18,6 +18,42 @@ package com.quantumn.future.algorithm.leetcode;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Subject_34 {
+
+    public int[] searchRange_review(int[] nums, int target) {
+        return binary_search(nums, 0, nums.length - 1, target);
+    }
+
+    private int[] binary_search(int[] nums, int left, int right, int target) {
+        if (left > right) {
+            return new int[]{-1,-1};
+        }
+        if (left == right ) {
+            if (target == nums[left]) {
+                return new int[]{left, right};
+            } else {
+                return new int[]{-1,-1};
+            }
+        }
+        int mid = (left + right) / 2;
+        if (target < nums[mid]) {
+            return binary_search(nums, left, mid, target);
+        } else if (target > nums[mid]) {
+            return binary_search(nums, mid + 1, right, target);
+        } else {
+            int[] left_range = binary_search(nums, left, mid - 1, target);
+            int[] right_range = binary_search(nums, mid + 1, right, target);
+            int[] ans = new int[]{mid,mid};
+            if (left_range[0]!=-1) {
+                ans[0] = left_range[0];
+            }
+            if (right_range[1]!=-1) {
+                ans[1] = right_range[1];
+            }
+            return ans;
+        }
+    }
+
+
     public int[] searchRange(int[] nums, int target) {
         return search(nums, 0, nums.length - 1, target);
     }
@@ -75,7 +111,8 @@ public class Subject_34 {
 
     public static void main(String[] args) {
         Subject_34 demo = new Subject_34();
-        int[] ans = demo.searchRange(new int[]{1,1,1,2,4,4,4,5,5,5,5,6,7,8,8,9,9,9,9,9,9,10},9);
+//        int[] ans = demo.searchRange_review(new int[]{5,7,7,8,8,10},8);
+        int[] ans = demo.searchRange_review(new int[]{1,1,1,2,4,4,4,5,5,5,5,6,7,8,8,9,9,9,9,9,9,10},9);
         System.out.println(ans[0]+","+ans[1]);
     }
 }

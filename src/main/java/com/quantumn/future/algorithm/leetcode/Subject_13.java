@@ -78,6 +78,7 @@ public class Subject_13 {
         Subject_13 demo = new Subject_13();
         System.out.println(demo.romanToInt("III"));
         System.out.println(demo.romanToInt("IX"));
+        //validate if input string has unexpected characters
         System.out.println(demo.romanToInt("MO"));
     }
 

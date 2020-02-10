@@ -1,10 +1,10 @@
 package com.quantumn.future.algorithm;
 
 
+import com.quantumn.future.algorithm.leetcode.common.TreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class BinarySearchTree {
     public int kthSmallest(TreeNode root, int k) {

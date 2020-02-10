@@ -103,10 +103,10 @@ public class Subject_44 {
     public static void main(String[] args) {
         Subject_44 demo = new Subject_44();
         System.out.println(demo.isMatch2("abefcdgiescdfimde", "ab*cd?i*de"));
-//        System.out.println(demo.isMatch("aa", "*"));
-//        System.out.println(demo.isMatch("aaaa", "***a"));
-//        System.out.println(demo.isMatch("cb", "?a"));
-//        System.out.println(demo.isMatch("adceb", "a*b"));
-//        System.out.println(demo.isMatch("acdcb", "a*c?b"));
+        System.out.println(demo.isMatch2("aa", "*"));
+        System.out.println(demo.isMatch2("aaaa", "***a"));
+        System.out.println(demo.isMatch2("cb", "?a"));
+        System.out.println(demo.isMatch2("adceb", "a*b"));
+        System.out.println(demo.isMatch2("acdcb", "a*c?b"));
     }
 }

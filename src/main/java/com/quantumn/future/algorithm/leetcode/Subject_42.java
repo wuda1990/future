@@ -20,11 +20,31 @@ import java.util.Stack;
 
 /**
  * 数组的问题虽然看似简单，乍看一下，已知的条件很少，但我们其实可以知道数组的长度，最大值，最小值，平均值等
- * 可以再申请一个数组空间，拷贝一部分数据到新数组
- * 可以从头和尾两个指针取遍历，这题的双指针难度很大，是有trap2变种而来，理解双指针遍历的方向是不同的
+ * 这题第一个坎就是将实际问题建模，转化成数学问题，对数组中的每个数去计算面积，formula: Area = Min(max_left,max_right)-height[i]
+ * 然后想办法求出每个元素的左边最大值和右边最大值
  */
 public class Subject_42 {
-    //该题的核心在于对数组中的每个数去计算面积，formula: Area = Min(max_left,max_right)-height[i]
+
+    public int trap_review(int[] height) {
+        int ans = 0;
+        for (int i = 1; i < height.length - 1; i++) {
+            int max_left = height[i];
+            for (int j = 0; j < i; j++) {
+                if (max_left < height[j]) {
+                    max_left = height[j];
+                }
+            }
+            int max_right = height[i];
+            for (int j = i + 1; j < height.length; j++) {
+                if (max_right < height[j]) {
+                    max_right = height[j];
+                }
+            }
+            ans += Math.min(max_left, max_right)-height[i];
+        }
+        return ans;
+    }
+
     //对于每个数，都循环一遍查找max_left,max_right
     public int trap(int[] height) {
         int ans = 0;
@@ -71,6 +91,8 @@ public class Subject_42 {
     //双指针法，理解如下公式是关键
     //left<right => max_left(0,left)<max_right(right,n-1)<max_right(left,n-1)
     //right<left => max_right(right,n-1)<max_left(0,left)<max_left(0,right)
+    //2020/1/8 不能为了套二分法去做，要逻辑清晰，本题就是想办法求得数组每个节点左边的最大值和右边的最大值
+    //trap3是trap2的另一种写法，通过双指针遍历数组，把求最小值的操作放在了比较左右指针值的时候了。但是求左边最大值仍然是公式max(max_left[i-1],height[i])
     public int trap3(int[] height) {
         if (height == null || height.length == 0) return 0;
         int ans = 0;
@@ -104,7 +126,7 @@ public class Subject_42 {
              * 当前值大于栈顶的值时，将前一个值出栈，开始计算面积
              */
             while (!stack.isEmpty() && height[cur] > height[stack.peek()]) {
-                int h = stack.pop();
+                int h = stack.pop();//当前出栈的元素就是当做谷底，计算能装水面积，栈顶元素是左面的墙，当前元素是右面的墙
                 if (stack.isEmpty()) {
                     break;
                 }
@@ -123,6 +145,6 @@ public class Subject_42 {
 
     public static void main(String[] args) {
         Subject_42 demo = new Subject_42();
-        System.out.println(demo.trap4(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
+        System.out.println(demo.trap2(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
     }
 }

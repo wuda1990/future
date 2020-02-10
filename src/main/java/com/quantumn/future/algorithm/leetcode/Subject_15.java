@@ -26,7 +26,8 @@ public class Subject_15 {
      */
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list =
+                new ArrayList<>();
         permute(ans,nums, list, 0);
         return ans;
     }
@@ -88,7 +89,7 @@ public class Subject_15 {
      * 如果 nums[i] == nums[i−1]，则说明该数字重复，会导致结果重复，所以应该跳过
      * 当 sum == 0 时，nums[L] == nums[L+1]] 则会导致结果重复，应该跳过，L++
      * 当 sum == 0 时，nums[R] == nums[R−1] 则会导致结果重复，应该跳过，R−−
-     * 时间复杂度：O(n2)，n 为数组长度
+     * 时间复杂度：O(n^2)，n 为数组长度
      * 作者：guanpengchn
      * 链接：https://leetcode-cn.com/problems/3sum/solution/hua-jie-suan-fa-15-san-shu-zhi-he-by-guanpengchn/
      * 来源：力扣（LeetCode）

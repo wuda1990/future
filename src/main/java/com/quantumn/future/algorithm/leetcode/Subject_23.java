@@ -1,5 +1,7 @@
 package com.quantumn.future.algorithm.leetcode;
 
+import com.quantumn.future.algorithm.leetcode.common.ListNode;
+
 /**
  * 合并k个排序链表
  * 合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。
@@ -21,7 +23,7 @@ package com.quantumn.future.algorithm.leetcode;
 public class Subject_23 {
     /**
      * 每次比较头节点的值，将最小值作为下一次递归的头节点
-     * 每一次递归消耗O（K)时间，链表个数为K,链表的长度为N,所以总耗时O(K*N)
+     * 每一次递归消耗O（K)时间，链表个数为K,最长链表的长度为N,所以总耗时O(K*N)
      * 空间复杂度O(1)
      * @param lists
      * @return

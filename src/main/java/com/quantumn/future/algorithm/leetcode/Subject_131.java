@@ -3,6 +3,7 @@ package com.quantumn.future.algorithm.leetcode;
 import com.quantumn.future.algorithm.HuiwenPatition2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,11 +52,9 @@ public class Subject_131 {
         }
     }
 
-
-
     public static void main(String[] args) {
         Subject_131 demo = new Subject_131();
-        demo.partition("aab");
+        demo.partition3("aab");
     }
 
     public List<List<String>> partition2(String s) {
@@ -95,4 +94,34 @@ public class Subject_131 {
         }
         return true;
     }
+
+    //动态规划+dfs,用动态规划判断子串是否是回文，用dfs来解决如何穷尽所有的子串
+    public List<List<String>> partition3(String s) {
+        List<List<String>> res = new ArrayList<>();
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i <= j; i++) {
+                if (s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i + 1][j - 1])){
+                    dp[i][j] = true;
+                }
+            }
+        }
+        System.out.println(Arrays.deepToString(dp));
+        dfs3(res, dp, 0, n, s, new ArrayList<String>());
+        return res;
+
+    }
+
+    private void dfs3(List<List<String>> res, boolean[][] dp, int i, int n, String s, ArrayList<String> tmp) {
+        if (i == n) res.add(new ArrayList<>(tmp));
+        for (int j = i; j < n; j++) {
+            if (dp[i][j]) {
+                tmp.add(s.substring(i, j + 1));
+                dfs3(res, dp, j + 1, n, s, tmp);
+                tmp.remove(tmp.size() - 1);
+            }
+        }
+    }
+
 }

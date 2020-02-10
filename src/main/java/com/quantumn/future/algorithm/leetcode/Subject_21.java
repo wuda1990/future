@@ -1,6 +1,6 @@
 package com.quantumn.future.algorithm.leetcode;
 
-import org.mvel2.util.Make;
+import com.quantumn.future.algorithm.leetcode.common.ListNode;
 
 /**
  * 合并两个有序链表

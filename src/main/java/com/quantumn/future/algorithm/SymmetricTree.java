@@ -1,6 +1,7 @@
 package com.quantumn.future.algorithm;
 
-import java.util.HashMap;
+import com.quantumn.future.algorithm.leetcode.common.TreeNode;
+
 import java.util.LinkedList;
 import java.util.Queue;
 

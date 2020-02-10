@@ -1,5 +1,7 @@
 package com.quantumn.future.algorithm.leetcode;
 
+import com.quantumn.future.algorithm.leetcode.common.ListNode;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,25 +29,28 @@ public class Subject_19 {
             p = p.next;
         }
         int j=0;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+
         //如果删除的是头结点
-        if (i == n) {
-            ListNode new_head = head.next;
-            head.next = null;
-            return new_head;
-        }
-        p = head;
-        ListNode pre = p;
+//        if (i == n) {
+//            ListNode new_head = head.next;
+//            head.next = null;
+//            return new_head;
+//        }
+        p = dummy.next;
+        ListNode pre = dummy;
         while (p != null) {
             if (j++ == i - n) {
                 //remove the node
                 pre.next = p.next;
                 p.next = null;
-                return head;
+                return dummy.next;
             }
             pre = p;
             p = p.next;
         }
-        return head;
+        return dummy.next;
     }
 
     public static void main(String[] args) {
@@ -56,7 +61,7 @@ public class Subject_19 {
         ListNode node4 = new ListNode(4);
         ListNode node5 = new ListNode(5);
         node1.append(node2).append(node3).append(node4).append(node5);
-        demo.removeNthFromEnd3(node1, 3).print();
+        demo.removeNthFromEnd2(node1, 5).print();
     }
 
     /**
@@ -67,28 +72,24 @@ public class Subject_19 {
      */
     public ListNode removeNthFromEnd2(ListNode head, int n) {
         Map<Integer, ListNode> map = new HashMap<>();
-        ListNode p = head;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode p = dummy;
         int i=0;
         while (p != null) {
             map.put(i++, p);
             p = p.next;
         }
-        //如果删除的是头结点
-        if (i == n) {
-            ListNode new_head = head.next;
-            head.next = null;
-            return new_head;
-        }
-        //删除中部结点
         ListNode last_n = map.get(i - n);
-        map.get(i-n-1).next = last_n.next;
+        map.get(i - n - 1).next = last_n.next;
         last_n.next = null;
-        return head;
+        return dummy.next;
     }
 
     /**
      * 双指针题解（双指针的用处是真多啊！）
      * 这题思路是真巧妙，通过start,end维护一个n大小的范围,当end为最后的一个数,start则为倒数第n个数，厉害！
+     * 这题先找到第n个node end，然后end到链表尾部还有size-n个node(size为链表的长度)，倒数第n个node即为从头结点算起 第size-n个node
      * @param head
      * @param n
      * @return

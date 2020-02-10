@@ -24,13 +24,33 @@ import java.util.List;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Subject_22 {
+    //20200106
+    public List<String> generateParenthesis_review(int n) {
+        List<String> ans = new ArrayList<>();
+        generate(ans, "", 0, 0, n);
+        return ans;
+    }
+
+    private void generate(List<String> ans, String str, int left, int right,int n) {
+        if (right == n) {
+            ans.add(str);
+            return;
+        }
+        if (left < n) {
+            generate(ans, str+"(", left + 1, right, n);
+        }
+        if (right < left) {
+            generate(ans, str+")", left, right + 1, n);
+        }
+    }
+
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         char[] str = new char[2 * n];
-        permute(ans,str,0,0,0);
+//        permute(ans,str,0,0,0);
 //        permute(ans, sb, 0, n);
-//        permute(ans, sb, 0, 0, n);
+        permute(ans, sb, 0, 0, n);
 //        permute(ans, "", 0, 0, n);
         return ans;
     }
@@ -146,10 +166,10 @@ public class Subject_22 {
          * 如果是非集合类的对象如整型，字符串，则可以不改变当前对象的值，而是表达式的形式把值传递给子节点!
          */
         if (open < n) {
-            permute(ans,cur+'(',open+1,close,n);
+            permute(ans, cur + '(', open + 1, close, n);
         }
         if (close < open) {
-            permute(ans,cur+')',open,close+1,n);
+            permute(ans, cur + ')', open, close + 1, n);
         }
     }
 

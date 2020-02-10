@@ -79,11 +79,14 @@ public class Subject_41 {
         if (!containsOne) return 1;
         //if (n == 1) return 2;
         //set the value to 1 when value <0,==0 or >nums.length
+        //如果元素值为负数或大于数组大小，则必然缺失正整数，先将他们值都置为1，因为1肯定存在，所以不影响后面的取反和判断
         for (int i = 0; i < n; i++) {
             if (nums[i] <= 0 || nums[i] > n) {
                 nums[i]=1;
             }
         }
+        //这里因为数组下标是0 to n-1, 正整数是从1到n，所以0就对应n
+        //遍历数组，把每个数组元素值对应的位置上的元素取反，这样第一个为正值的位置就是缺失的正整数！
         for (int i = 0; i < n; i++) {
             //这里使用绝对值也很关键
             int a = Math.abs(nums[i]);

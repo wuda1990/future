@@ -16,7 +16,7 @@ package com.quantumn.future.algorithm.leetcode;
  *
  * 说明：
  *
- * 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。
+ * 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−2^31,  2^31 − 1]。如果数值超过这个范围，请返回  INT_MAX (2^31 − 1) 或 INT_MIN (−2^31) 。
  *
  *
  *
@@ -51,7 +51,6 @@ public class Subject_8 {
                     return isNegative==1?Integer.MAX_VALUE:Integer.MIN_VALUE;
                 }
                 ans = ans *10 + tmpValue;
-
             }
             break;//ignore back string
         }

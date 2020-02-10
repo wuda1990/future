@@ -107,7 +107,6 @@ public class Subject_43 {
         int start = 0;
         while (ans[start]==0) start++;
         for (int i = start; i < ans.length; i++) {
-
             sb.append(ans[i]);
         }
         return sb.toString();

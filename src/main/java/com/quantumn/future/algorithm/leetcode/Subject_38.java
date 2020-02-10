@@ -45,10 +45,8 @@ public class Subject_38 {
                 sb.append(cnt).append(str.charAt(i));
                 cnt = 0;
             }
-
         }
         return sb.toString();
-
     }
 
     public static void main(String[] args) {

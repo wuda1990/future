@@ -65,10 +65,12 @@ public class Subject_17 {
         for(int i =0; i<digits.length();i++){
             int x = Character.getNumericValue(digits.charAt(i));
             //ans.peek()只是获取在队列头部的数据
-            while(ans.peek().length()==i){
+            while (ans.peek().length() == i) {
+                //删除对列头部元素并取出
                 String t = ans.remove();
-                for(char s : mapping[x].toCharArray())
-                    ans.add(t+s);
+                for (char s : mapping[x].toCharArray())
+                    //将组合加入队列尾部
+                    ans.add(t + s);
             }
         }
         return ans;

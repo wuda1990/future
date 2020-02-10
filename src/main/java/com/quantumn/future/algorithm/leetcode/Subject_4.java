@@ -36,6 +36,11 @@ public class Subject_4 {
         }
     }
 
+    //ToDo 二分法
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        return 0;
+    }
+
     public static void main(String[] args) {
         int[] nums1 = new int[]{1,3};
         int[] nums2 = new int[]{};

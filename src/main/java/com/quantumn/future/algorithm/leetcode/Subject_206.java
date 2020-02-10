@@ -1,5 +1,7 @@
 package com.quantumn.future.algorithm.leetcode;
 
+import com.quantumn.future.algorithm.leetcode.common.ListNode;
+
 /**
  * 反转链表
  * 反转一个单链表。
@@ -17,13 +19,12 @@ package com.quantumn.future.algorithm.leetcode;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Subject_206 {
-    private ListNode tail;
-
     /**
      * 递归的方法定义了一个tail全局变量存储每个递归层次最后的结点值
      * @param head
      * @return
      */
+    private ListNode tail;
     public ListNode reverseList(ListNode head) {
         if(head == null) return null;
         if (head.next == null) {
@@ -37,15 +38,37 @@ public class Subject_206 {
         return new_head;
     }
 
-    //迭代的方法
+    /**
+     * 递归的方法定义了一个start全局变量表示当前链表的尾部，即反转链表的头部
+     * @param head
+     * @return
+     */
+    private ListNode start;
+    public ListNode reverseList2(ListNode head) {
+        ListNode ans = null;
+        reverse2(head);
+        return start;
+    }
+    public ListNode reverse2(ListNode head) {
+        if(head == null) return null;
+        if (head.next == null) {
+            start = head;
+            return head;
+        }
+        ListNode tail = reverse2(head.next);
+        tail.next = head;
+        head.next = null;
+        return head;
+    }
 
     /**
+     * 迭代的方法
      *  最先想到的是栈，虽然简洁明了，但是占了一个数组空间
      *  这里定义了一个prev取保存前一个值，定义了tmp保存下一个值
      * @param head
      * @return
      */
-    public ListNode reverseList2(ListNode head) {
+    public ListNode reverseList3(ListNode head) {
         ListNode prev = null;
         ListNode p = head;
         while (p != null) {
@@ -55,6 +78,22 @@ public class Subject_206 {
             p = tmp;
         }
         return prev;
+    }
+
+    //链表反转的核心是双指针,一个指向前一个指针，一个指向当前指针，p.next下一个指针也需要暂存
+    public ListNode reverse_review(ListNode head) {
+        ListNode pre = head;
+        ListNode tail = pre;
+        if (pre != null) {
+            ListNode p = pre.next;
+            while (p != null) {
+                tail.next = p.next;
+                p.next = pre;
+                pre = p;
+                p = tail.next;
+            }
+        }
+        return pre;
     }
 
 

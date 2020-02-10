@@ -22,6 +22,7 @@ public class Subject_29 {
             dividend = -dividend;
         }
         if(divisor>0) divisor = -divisor;
+        //保留外层循环是因为除数以2倍递增，有可能存在被除数是除数奇数倍的情况
         while(dividend <= divisor) {
             int temp_result = -1;
             int temp_divisor = divisor;
@@ -43,7 +44,7 @@ public class Subject_29 {
 
     public static void main(String[] args) {
         Subject_29 demo = new Subject_29();
-//        System.out.println(demo.divide(32,8));
-        System.out.println(demo.divide(Integer.MIN_VALUE,Integer.MIN_VALUE));
+//        System.out.println(demo.divide(178,-32));
+        System.out.println(demo.divide(Integer.MIN_VALUE,(Integer.MIN_VALUE>>1)-1));
     }
 }

@@ -11,17 +11,19 @@ package com.quantumn.future.algorithm.leetcode;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Subject_28 {
+    //执行用时 :4 ms, 在所有 Java 提交中击败了33.51% 的用户
     public int strStr(String haystack, String needle) {
         if(needle.length() == 0) return 0;
-        for (int i = 0; i < haystack.length(); i++) {
+        for (int i = 0; i < haystack.length()-needle.length()+1; i++) {
             int j = i;//haystack字符串指针
             int k = 0;//needle字符串指针
             while (j < haystack.length() && k < needle.length()) {
-                if (haystack.charAt(j++) != needle.charAt(k++)) {
+                if (haystack.charAt(j) != needle.charAt(k)) {
                     break;
                 }
+                j++;k++;
             }
-            if (k == needle.length() && haystack.charAt(j-1) == needle.charAt(k-1)) {
+            if (k == needle.length()) {
                 return i;
             }
         }
@@ -44,9 +46,12 @@ public class Subject_28 {
         return -1;
     }
 
+    //Todo
+    //题解里有用KMP,有用Sunday算法的，鉴于过于复杂，等有时间了再研究
+
     public static void main(String[] args) {
         Subject_28 demo = new Subject_28();
-        System.out.println(demo.strStr2("hello","ll"));
-//        System.out.println(demo.strStr("aaaaa","bba"));
+//        System.out.println(demo.strStr("hello","lo"));
+        System.out.println(demo.strStr("mississippi","a"));
     }
 }

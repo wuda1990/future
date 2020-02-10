@@ -22,6 +22,8 @@ public class YanghuiAngle2 {
         return prevResult;
     }
 
+    //通过队列的方式去更新list，也很巧妙
+    //队列尾部添加一个元素，队列头部移出元素
     public List<Integer> getRowByLinkedList(int rowIndex) {
         LinkedList<Integer> result = new LinkedList<>();
         for (int i = 0; i <= rowIndex; i++) {
@@ -38,6 +40,9 @@ public class YanghuiAngle2 {
 
     public static void main(String[] args) {
         YanghuiAngle2 angle2 = new YanghuiAngle2();
-        angle2.getRowByLinkedList(3);
+        List<Integer> ans = angle2.getRow(3);
+        for (Integer t : ans) {
+            System.out.print(t+",");
+        }
     }
 }
