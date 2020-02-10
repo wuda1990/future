@@ -1,5 +1,6 @@
 package com.quantumn.future.algorithm.leetcode;
 
+import com.quantumn.future.algorithm.leetcode.common.ListNode;
 import org.apache.poi.ss.formula.functions.Sumxmy2;
 
 /**
