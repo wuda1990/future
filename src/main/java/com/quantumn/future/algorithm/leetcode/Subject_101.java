@@ -97,3 +97,56 @@ public class Subject_101 {
     }
 }
 
+/*
+public class Subject_101 {
+    Queue<Integer> dataQueue = new LinkedList<>();
+    private boolean isSymmetric = true;
+    public boolean isSymmetric(TreeNode root) {
+        tranverse(root);
+//        System.out.println();
+        reverse_tranverse(root);
+        return isSymmetric;
+    }
+
+    void tranverse(TreeNode root) {
+        if (root == null) {
+            dataQueue.offer(null);
+//            System.out.print("nil,");
+            return;
+        }
+//        System.out.print(root.val+",");
+        dataQueue.offer(root.val);
+        tranverse(root.left);
+        tranverse(root.right);
+    }
+
+    void reverse_tranverse(TreeNode root) {
+        if (isSymmetric == false) {
+            return ;
+        }
+        if (root==null){
+//            System.out.print("nil,");
+            if(dataQueue.poll()!=null){
+                isSymmetric = false;
+            }
+            return;
+        }
+        Integer k = dataQueue.poll();
+//        System.out.print(root.val+",");
+        if (k == null || root.val != k) {
+            isSymmetric = false;
+            return;
+        }
+        reverse_tranverse(root.right);
+        reverse_tranverse(root.left);
+    }
+
+    public static void main(String[] args) {
+        LinkedList<Integer> queue = new LinkedList<>();
+        queue.offer(1);
+        queue.offer(2);
+        System.out.println(queue.pollLast()+","+queue.pollLast());
+    }
+
+}
+*/
