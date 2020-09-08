@@ -58,6 +58,7 @@ public class Subject_20 {
                 stack.push(value);
                 continue;
             }
+            //当前字符是有括号，但栈为空，肯定不是有效的括号，直接返回false
             char top = stack.isEmpty() ? '#' : stack.pop();
             if (')' == value &&'(' != top) {
                 return false;

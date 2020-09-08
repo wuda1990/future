@@ -37,7 +37,7 @@ public class Subject_1 {
     }
     //Todo, 题解中用HashMap的方法
     public int[] twoSumByHashMap(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap();
+        HashMap<Integer, Integer> map = new HashMap(nums.length);
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
                 return new int[]{map.get(target - nums[i]), i};
@@ -81,6 +81,7 @@ public class Subject_1 {
         }
         return ans;
     }
+
 
     public static void main(String[] args) {
         Subject_1 demo = new Subject_1();

@@ -1,0 +1,11 @@
+package com.faster.fasterboot
+
+import com.quantumn.future.model.TradeAuditBo
+
+rule "txnaudit"
+    no-loop true
+    when
+        bo : TradeAuditBo(amount>5)
+    then
+        System.out.println("hit rule: amount>5");
+end

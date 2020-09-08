@@ -37,7 +37,7 @@ public class Subject_4 {
     }
 
     //ToDo 二分法
-    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+    public double findMedianSortedArrays3(int[] nums1, int[] nums2) {
         return 0;
     }
 

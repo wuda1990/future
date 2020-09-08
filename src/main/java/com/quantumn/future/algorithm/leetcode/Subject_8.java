@@ -46,7 +46,7 @@ public class Subject_8 {
             }
             //calculate the int value
             while(j<str.length() && Character.isDigit(str.charAt(j))){
-                int tmpValue = (int)str.charAt(j++) - 48;
+                int tmpValue = (int)str.charAt(j++) - '0';
                 if (ans > Integer.MAX_VALUE/10 || ans == Integer.MAX_VALUE/10 && tmpValue>7) {
                     return isNegative==1?Integer.MAX_VALUE:Integer.MIN_VALUE;
                 }

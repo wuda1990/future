@@ -37,7 +37,7 @@ public class Subject_26 {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1,2};
+        int[] nums = new int[]{1,2,3};
         Subject_26 demo = new Subject_26();
         int len = demo.removeDuplicates(nums);
         for (int i = 0; i < len; i++) {

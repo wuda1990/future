@@ -62,7 +62,8 @@ public class Subject_206 {
     }
 
     /**
-     * 迭代的方法
+     * 迭代的方法,这是最简洁的方法
+     * 链表的方法之所以可行，是因为我可以有多个引用变量可以指向同一个对象！
      *  最先想到的是栈，虽然简洁明了，但是占了一个数组空间
      *  这里定义了一个prev取保存前一个值，定义了tmp保存下一个值
      * @param head
@@ -72,7 +73,7 @@ public class Subject_206 {
         ListNode prev = null;
         ListNode p = head;
         while (p != null) {
-            ListNode tmp = p.next;
+            ListNode tmp = p.next;//注意p.next需要先保存起来
             p.next = prev;
             prev = p;
             p = tmp;
@@ -101,6 +102,6 @@ public class Subject_206 {
         ListNode head = new ListNode(1);
         head.append(new ListNode(2)).append(new ListNode(3)).append(new ListNode(4)).append(new ListNode(5));
         Subject_206 demo = new Subject_206();
-        demo.reverseList2(head).print();
+        demo.reverseList3(head).print();
     }
 }

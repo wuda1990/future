@@ -18,7 +18,7 @@ import com.quantumn.future.algorithm.leetcode.common.ListNode;
 public class Subject_21 {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(0);
-        ListNode p = dummy;
+        ListNode p = dummy; //通过这里我们学到了对象的引用，p和dummy都是同一个对象头节点的引用
         ListNode p1 = l1;
         ListNode p2 = l2;
         while (p1 != null && p2 != null) {
@@ -48,7 +48,7 @@ public class Subject_21 {
         l2.append(new ListNode(3)).append(new ListNode(4));
         l1.print();
         l2.print();
-        demo.mergeTwoLists(l1, l2).print();
+        demo.mergeTwoLists2(l1, l2).print();
     }
 
     /**

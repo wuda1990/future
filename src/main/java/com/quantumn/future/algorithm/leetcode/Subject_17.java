@@ -12,7 +12,8 @@ public class Subject_17 {
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList<>();
         if(digits.length()==0) return ans;
-        permute(ans,digits,new StringBuilder(),0);
+//        permute(ans,digits,new StringBuilder(),0);
+        display(ans,digits,"",0);
         return ans;
     }
 
@@ -28,6 +29,18 @@ public class Subject_17 {
         telMap.put('8', "tuv");
         telMap.put('9', "wxyz");
 
+    }
+
+    private final void display(List<String> ans, String digits, String prefix, int index) {
+        if (index == digits.length()) {
+            ans.add(prefix);
+        } else {
+            String telStr = telMap.get(digits.charAt(index));
+            for (int j = 0; j < telStr.length(); j++) {
+                //这里用到了方法的参数都是形参，是复制一份的
+                display(ans,digits,prefix + telStr.charAt(j),index+1);
+            }
+        }
     }
 
     private void permute(List<String> ans, String digits, StringBuilder stringBuilder, int index) {
@@ -47,7 +60,7 @@ public class Subject_17 {
     public static void main(String[] args) {
         Subject_17 demo = new Subject_17();
         List<String> ans = demo.letterCombinations2("234");
-        ans.forEach(str->System.out.println(str.toString()));
+        ans.forEach(str->System.out.println(str));
     }
 
     /**

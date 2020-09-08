@@ -63,6 +63,7 @@ public class Subject_5 {
         String ans = "";
         //两层循环，dp[j][i]利用了dp[j+1][i-1]的计算结果
         //用i-j<=2判断一些初始化的情况，巧妙
+        //在于要搞清递推的顺序，要从长度短的长度长的，所以先确定列，在确定行，且行不能大于列
         for (int i = 0; i < n; i++) {
             for (int j = 0; j <= i; j++) {
                 if (s.charAt(j) == s.charAt(i) && (i - j <= 2 || dp[j + 1][i - 1])) {

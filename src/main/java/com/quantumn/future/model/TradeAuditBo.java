@@ -9,6 +9,18 @@ public class TradeAuditBo {
     Date tradeTime;
     long past24hSuccTradeCnt;
 
+    public TradeAuditBo() {
+
+    }
+
+    public TradeAuditBo(long id, String card, long amount, Date tradeTime) {
+        this.id = id;
+        this.card = card;
+        this.amount = amount;
+        this.tradeTime = tradeTime;
+        past24hSuccTradeCnt = 0L;
+    }
+
     public long getId() {
         return id;
     }

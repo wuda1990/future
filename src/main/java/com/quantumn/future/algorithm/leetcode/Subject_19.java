@@ -89,7 +89,6 @@ public class Subject_19 {
     /**
      * 双指针题解（双指针的用处是真多啊！）
      * 这题思路是真巧妙，通过start,end维护一个n大小的范围,当end为最后的一个数,start则为倒数第n个数，厉害！
-     * 这题先找到第n个node end，然后end到链表尾部还有size-n个node(size为链表的长度)，倒数第n个node即为从头结点算起 第size-n个node
      * @param head
      * @param n
      * @return

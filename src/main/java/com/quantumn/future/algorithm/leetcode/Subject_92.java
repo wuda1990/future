@@ -20,7 +20,8 @@ import com.quantumn.future.algorithm.leetcode.common.ListNode;
  */
 public class Subject_92 {
     /**
-     * 当遇到head也参与到循环里时，需要要用到dummy节点
+     * 当遇到head也参与到循环里时，需
+     * 要要用到dummy节点
      * 循环的判断里，要减少判断次数
      * @param head
      * @param m
@@ -102,7 +103,7 @@ public class Subject_92 {
         ListNode head = new ListNode(1);
         head.append(new ListNode(2)).append(new ListNode(3)).append(new ListNode(4)).append(new ListNode(5));
         Subject_92 demo = new Subject_92();
-        demo.reverseBetween(head,1,4).print();
+        demo.reverseBetween(head,2,4).print();
 //        demo.reverseBetween2(head,2,4).print();
     }
 

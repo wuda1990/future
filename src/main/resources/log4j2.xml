@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN" monitorInterval="30">
-    <properties>
-        <property name="log.dir" value="/opt/log/app-future"/>
-        <property name="project.name" value="app-future"/>
-    </properties>
+    <!--<properties>-->
+        <!--<property name="log.dir" value="/opt/log/app-future"/>-->
+        <!--<property name="project.name" value="app-future"/>-->
+    <!--</properties>-->
 
-    <Appenders>
-        <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss SSS} %-5p [%t] (%c %L) - %m%n" />
-        </Console>
-        <RollingRandomAccessFile name="logfile" fileName="${log.dir}/${project.name}.log" filePattern="${log.dir}/${project.name}-%d{yyyy-MM-dd}.log.%i">
-            <PatternLayout>
-                <Pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%-5p] [traceid=%X{X-B3-TraceId}] [spanid=%X{X-B3-SpanId}] %t(%c.%M:%L) - %m%n</Pattern>
-            </PatternLayout>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="4" modulate="true"/>
-                <SizeBasedTriggeringPolicy size="100MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="50"/>
-        </RollingRandomAccessFile>
-    </Appenders>
+    <!--<Appenders>-->
+        <!--<Console name="console" target="SYSTEM_OUT">-->
+            <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss SSS} %-5p [%t] (%c %L) - %m%n" />-->
+        <!--</Console>-->
+        <!--<RollingRandomAccessFile name="logfile" fileName="${log.dir}/${project.name}.log" filePattern="${log.dir}/${project.name}-%d{yyyy-MM-dd}.log.%i">-->
+            <!--<PatternLayout>-->
+                <!--<Pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%-5p] [traceid=%X{X-B3-TraceId}] [spanid=%X{X-B3-SpanId}] %t(%c.%M:%L) - %m%n</Pattern>-->
+            <!--</PatternLayout>-->
+            <!--<Policies>-->
+                <!--<TimeBasedTriggeringPolicy interval="4" modulate="true"/>-->
+                <!--<SizeBasedTriggeringPolicy size="100MB"/>-->
+            <!--</Policies>-->
+            <!--<DefaultRolloverStrategy max="50"/>-->
+        <!--</RollingRandomAccessFile>-->
+    <!--</Appenders>-->
 
     <Loggers>
         <AsyncLogger name="com.quantumn.future" level="info" additivity="false" includeLocation="true">
             <AppenderRef ref="console"/>
-            <AppenderRef ref="logfile"/>
+            <!--<AppenderRef ref="logfile"/>-->
         </AsyncLogger>
         <AsyncRoot level="warn" includeLocation="true">
             <AppenderRef ref="console"/>
-            <AppenderRef ref="logfile"/>
+            <!--<AppenderRef ref="logfile"/>-->
         </AsyncRoot>
     </Loggers>
 </Configuration>
