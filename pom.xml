@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <drools.version>7.15.0.Final</drools.version>
+        <drools.version>7.60.0.Final</drools.version>
         <cxf.version>2.7.11</cxf.version>
         <httpclient.version>3.1</httpclient.version>
         <jax.ws.rs>2.0.1</jax.ws.rs>
